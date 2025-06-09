@@ -18,8 +18,8 @@ public class Link {
     @Column(name = "link_id")
     private Long linkId;
 
-    @Column(name ="title")
-    private String title;
+    @Column(name ="url")
+    private String url;
 
     @Column(name = "description")
     private String description;

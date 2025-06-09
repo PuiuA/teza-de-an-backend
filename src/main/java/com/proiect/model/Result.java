@@ -31,5 +31,5 @@ public class Result {
 
     @Column(name = "category_result")
     @OneToMany
-    private List<CategoryResult> categoryResult;
+    private List<CategoryResult> categoryResults;
 }
