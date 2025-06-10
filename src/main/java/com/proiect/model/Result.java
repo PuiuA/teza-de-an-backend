@@ -13,7 +13,7 @@ import java.util.List;
 @Data
 @Builder
 @Entity
-@Table(name = "result", schema = "judo_schema")
+@Table(name = "result", schema = "judo_moldova")
 public class Result {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,7 +29,10 @@ public class Result {
     @Column(name = "age")
     private int age;
 
-    @Column(name = "category_result")
-    @OneToMany
+    @OneToMany(mappedBy = "result",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true,
+            fetch = FetchType.LAZY)
     private List<CategoryResult> categoryResults;
+
 }

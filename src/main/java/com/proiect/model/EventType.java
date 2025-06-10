@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Data
 @Entity
-@Table(name = "event_type", schema = "judo_schema")
+@Table(name = "event_type", schema = "judo_moldova")
 public class EventType {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -17,5 +17,5 @@ public class EventType {
     private Long id;
 
     @Column(name = "event_name")
-    private String name;
+    private EventTypeEnum eventType;
 }

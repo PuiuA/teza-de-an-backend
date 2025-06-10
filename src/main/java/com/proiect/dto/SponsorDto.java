@@ -14,12 +14,14 @@ public class SponsorDto {
     private Long id;
     private String title;
     private byte[] image;
+    private String link;
 
     public static SponsorDto fromSponsorToDto(Sponsor sponsor) {
         return SponsorDto.builder()
                 .id(sponsor.getId())
                 .title(sponsor.getTitle())
                 .image(sponsor.getImage())
+                .link(sponsor.getLink())
                 .build();
     }
 }

@@ -1,10 +1,13 @@
 package com.proiect.dto;
 
+import com.proiect.model.Competition;
 import com.proiect.model.Link;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -17,9 +20,11 @@ public class LinkDto {
 
     public static LinkDto fromLinkToDto(Link link) {
         return LinkDto.builder()
-                .id(link.getLinkId())
+                .id(link.getId())
                 .url(link.getUrl())
                 .description(link.getDescription())
                 .build();
     }
+
+
 }

@@ -6,12 +6,14 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
 @Builder
 @Entity
-@Table(name = "category", schema = "judo_schema")
+@Table(name = "category", schema = "judo_moldova")
 public class Category {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

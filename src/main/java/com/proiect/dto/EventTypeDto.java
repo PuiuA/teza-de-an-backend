@@ -1,6 +1,7 @@
 package com.proiect.dto;
 
 import com.proiect.model.EventType;
+import com.proiect.model.EventTypeEnum;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -14,12 +15,12 @@ import java.time.LocalDateTime;
 @Builder
 public class EventTypeDto {
     private Long id;
-    private String name;
+    private EventTypeEnum eventType;
 
     public static EventTypeDto fromEventTypeToDto(EventType eventType) {
         return EventTypeDto.builder()
                 .id(eventType.getId())
-                .name(eventType.getName())
+                .eventType(eventType.getEventType())
                 .build();
     }
 

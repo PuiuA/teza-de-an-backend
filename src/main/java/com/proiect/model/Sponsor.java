@@ -24,4 +24,7 @@ public class Sponsor {
 
     @Column(name = "title")
     private String title;
+
+    @Column(name = "link")
+    private String link;
 }

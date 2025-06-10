@@ -6,6 +6,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
@@ -16,11 +18,12 @@ public class Link {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "link_id")
-    private Long linkId;
+    private Long id;
 
     @Column(name ="url")
     private String url;
 
     @Column(name = "description")
     private String description;
+
 }

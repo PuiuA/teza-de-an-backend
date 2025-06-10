@@ -17,11 +17,14 @@ public class CategoryResultDto {
 
     private String competitors;
 
+    private ResultDto result;
+
     public static CategoryResultDto fromCategoryResultToDto(CategoryResult categoryResult){
         return CategoryResultDto.builder()
                 .id(categoryResult.getId())
                 .category(CategoryDto.fromCategoryToDto(categoryResult.getCategory()))
                 .competitors(categoryResult.getCompetitors())
+                .result(ResultDto.fromResultToDto(categoryResult.getResult()))
                 .build();
     }
 }

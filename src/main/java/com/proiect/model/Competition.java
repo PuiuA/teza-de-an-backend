@@ -1,13 +1,11 @@
 package com.proiect.model;
 
-
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 @AllArgsConstructor
@@ -15,11 +13,11 @@ import java.util.List;
 @Data
 @Builder
 @Entity
-@Table(name = "event", schema="judo_schema")
-public class Event {
+@Table(name = "competition", schema="judo_moldova")
+public class Competition {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "event_id")
+    @Column(name = "competition_id")
     private Long id;
 
     @Column(name = "title", nullable=false)
@@ -31,25 +29,16 @@ public class Event {
     @Column(name = "short_description", nullable=false)
     private String shortDescription;
 
-    @Column(name = "published", nullable=false)
-    private LocalDateTime published;
-
-    @JoinColumn(name = "event_type_id", nullable = false)
-    @ManyToOne(fetch = FetchType.LAZY)
-    private EventType eventType;
-
     @Column(name = "image")
     private byte[] image;
 
-    @Column(name = "links")
-    private List<String> links;
-
-    @Column(name = "author")
-    private String author;
-
-    @JoinColumn(name = "categories")
-    @OneToMany(fetch = FetchType.LAZY)
-    private List<Category> categories;
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(
+            name = "competition_link", schema = "judo_moldova",
+            joinColumns = @JoinColumn(name = "competition_id"),
+            inverseJoinColumns = @JoinColumn(name = "link_id")
+    )
+    private List<Link> links;
 
     @Column(name = "information")
     private String information;
