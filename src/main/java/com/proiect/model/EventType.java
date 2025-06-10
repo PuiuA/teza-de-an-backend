@@ -16,6 +16,6 @@ public class EventType {
     @Column(name = "event_type_id")
     private Long id;
 
-    @Column(name = "event_name")
+    @Column(name = "event_type")
     private EventTypeEnum eventType;
 }
