@@ -1,4 +1,9 @@
 package com.proiect.repository;
 
-public interface NewsRepository {
+import com.proiect.model.News;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
+@Repository
+public interface NewsRepository extends JpaRepository<News, Long> {
 }
