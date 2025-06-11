@@ -38,9 +38,6 @@ public class ResultDto {
                 .id(result.getId())
                 .title(result.getTitle())
                 .age(result.getAge())
-                .categoryResults(result.getCategoryResults().stream()
-                        .map(CategoryResultDto::fromCategoryResultToDto)
-                        .collect(Collectors.toList()))
                 .build();
     }
 

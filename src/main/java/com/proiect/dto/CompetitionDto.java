@@ -40,7 +40,9 @@ public class CompetitionDto {
                 .links(competition.getLinks().stream()
                         .map(LinkDto::fromLinkToDto)
                         .collect(Collectors.toList()))
-                .result(ResultDto.fromResultToDtoSimple(competition.getResult()))
+                .result(competition.getResult() != null
+                        ? ResultDto.fromResultToDtoSimple(competition.getResult())
+                        : null)
                 .build();
     }
 

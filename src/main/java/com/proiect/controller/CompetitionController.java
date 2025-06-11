@@ -27,4 +27,10 @@ public class CompetitionController {
     public CompetitionDto getCompetitionById(@PathVariable Long id) {
         return competitionService.getCompetitionById(id);
     }
+
+    @GetMapping("/recent")
+    public List<CompetitionDto> getRecentCompetition() {
+        return competitionService.get2Competitions();
+    }
+
 }
