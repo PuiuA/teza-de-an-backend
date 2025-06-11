@@ -6,6 +6,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @AllArgsConstructor
@@ -31,6 +33,13 @@ public class Competition {
 
     @Column(name = "image")
     private byte[] image;
+
+    @Column(name = "date_time")
+    private LocalDateTime dateTime;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "result_id")
+    private Result result;
 
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(

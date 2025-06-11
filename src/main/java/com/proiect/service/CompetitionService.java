@@ -8,7 +8,7 @@ import java.util.List;
 public interface CompetitionService {
     public List<CompetitionDto> getAllCompetitions();
     public CompetitionDto getCompetitionById(Long id);
-    public CompetitionDto createCompetition(CompetitionDto competitionDto);
-    public CompetitionDto updateCompetition(CompetitionDto competitionDto);
-    public void deleteCompetition(Long id);
+//    public CompetitionDto createCompetition(CompetitionDto competitionDto);
+//    public CompetitionDto updateCompetition(CompetitionDto competitionDto);
+//    public void deleteCompetition(Long id);
 }

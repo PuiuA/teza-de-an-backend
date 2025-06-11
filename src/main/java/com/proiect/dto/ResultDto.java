@@ -17,7 +17,7 @@ import java.util.stream.Collectors;
 public class ResultDto {
     private Long id;
     private String title;
-    private String year;
+    private CompetitionDto competition;
     private int age;
     private List<CategoryResultDto> categoryResults;
 
@@ -25,7 +25,18 @@ public class ResultDto {
         return ResultDto.builder()
                 .id(result.getId())
                 .title(result.getTitle())
-                .year(result.getYear())
+                .competition(CompetitionDto.fromCompetitionToDto(result.getCompetition()))
+                .age(result.getAge())
+                .categoryResults(result.getCategoryResults().stream()
+                        .map(CategoryResultDto::fromCategoryResultToDto)
+                        .collect(Collectors.toList()))
+                .build();
+    }
+
+    public static ResultDto fromResultToDtoSimple(Result result) {
+        return ResultDto.builder()
+                .id(result.getId())
+                .title(result.getTitle())
                 .age(result.getAge())
                 .categoryResults(result.getCategoryResults().stream()
                         .map(CategoryResultDto::fromCategoryResultToDto)

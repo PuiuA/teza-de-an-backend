@@ -1,23 +1,29 @@
 package com.proiect.service.impl;
 
 import com.proiect.dto.NewsDto;
+import com.proiect.repository.NewsRepository;
 import com.proiect.service.NewsService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
 public class NewsServiceImpl implements NewsService {
+    private final NewsRepository newsRepository;
+
     @Override
     public NewsDto getNewsById(Long id) {
-        return null;
+        return NewsDto.fromEventToDto(newsRepository.findById(id).get());
     }
 
     @Override
     public List<NewsDto> getAllNews() {
-        return List.of();
+        return newsRepository.findAll().stream()
+                .map(NewsDto::fromEventToDto)
+                .collect(Collectors.toList());
     }
 
     @Override
