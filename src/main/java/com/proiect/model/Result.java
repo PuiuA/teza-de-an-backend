@@ -23,9 +23,6 @@ public class Result {
     @Column(name = "title")
     private String title;
 
-    @OneToOne(mappedBy = "result")
-    private Competition competition;
-
     @Column(name = "age")
     private int age;
 

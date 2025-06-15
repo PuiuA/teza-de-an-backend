@@ -25,7 +25,6 @@ public class ResultDto {
         return ResultDto.builder()
                 .id(result.getId())
                 .title(result.getTitle())
-                .competition(CompetitionDto.fromCompetitionToDto(result.getCompetition()))
                 .age(result.getAge())
                 .categoryResults(result.getCategoryResults().stream()
                         .map(CategoryResultDto::fromCategoryResultToDto)

@@ -37,10 +37,6 @@ public class Competition {
     @Column(name = "date_time")
     private LocalDateTime dateTime;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "result_id")
-    private Result result;
-
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
             name = "competition_link", schema = "judo_moldova",

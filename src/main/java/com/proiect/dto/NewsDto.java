@@ -27,7 +27,7 @@ public class NewsDto {
     private String author;
     private String information;
 
-    public static NewsDto fromEventToDto(News news) {
+    public static NewsDto fromNewsToDto(News news) {
         return NewsDto.builder()
                 .id(news.getId())
                 .title(news.getTitle())
@@ -50,6 +50,5 @@ public class NewsDto {
         }
         return new ArrayList<>();
     }
-
 
 }

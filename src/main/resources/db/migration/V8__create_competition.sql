@@ -5,8 +5,7 @@ CREATE TABLE judo_moldova.competition (
       short_description TEXT NOT NULL,
       image BYTEA,
       information TEXT,
-      date_time TIMESTAMP,
-      result_id BIGINT UNIQUE REFERENCES judo_moldova.result(result_id)
+      date_time TIMESTAMP
 );
 CREATE TABLE judo_moldova.competition_link (
        competition_id BIGINT NOT NULL,

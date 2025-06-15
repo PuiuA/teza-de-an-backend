@@ -17,7 +17,7 @@ public class WebConfig {
                         .allowedOrigins("http://localhost:5174") // adresa frontendului tău
                         .allowedMethods("GET", "POST", "PUT", "DELETE")
                         .allowedHeaders("*")
-                        .allowCredentials(true); // dacă folosești cookie-uri sau autentificare
+                        .allowCredentials(true);
             }
         };
     }

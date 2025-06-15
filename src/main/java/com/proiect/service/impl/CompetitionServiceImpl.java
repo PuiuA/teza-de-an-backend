@@ -5,6 +5,9 @@ import com.proiect.model.Competition;
 import com.proiect.repository.CompetitionRepository;
 import com.proiect.service.CompetitionService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -39,6 +42,25 @@ public class CompetitionServiceImpl implements CompetitionService {
                 .limit(2)
                 .map(CompetitionDto::fromCompetitionToDto)
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public Page<CompetitionDto> getPaginatedCompetitions(Pageable pageable, String title, Integer year) {
+        List<CompetitionDto> all = competitionRepository.findAll().stream()
+                .filter(c -> {
+                    boolean matchTitle = title == null || c.getTitle().toLowerCase().contains(title.toLowerCase());
+                    boolean matchYear = year == null || c.getDateTime().getYear() == year;
+                    return matchTitle && matchYear;
+                })
+                .map(CompetitionDto::fromCompetitionToDto)
+                .sorted(Comparator.comparing(CompetitionDto::getDate)) // data din DTO
+                .collect(Collectors.toList());
+
+        int start = (int) pageable.getOffset();
+        int end = Math.min(start + pageable.getPageSize(), all.size());
+
+        List<CompetitionDto> pagedList = all.subList(start, end);
+        return new PageImpl<>(pagedList, pageable, all.size());
     }
 
 //    @Override

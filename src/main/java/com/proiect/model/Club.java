@@ -2,20 +2,25 @@ package com.proiect.model;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
+@Builder
 @Entity
-@Table(name = "event_type", schema = "judo_moldova")
-public class EventType {
+@Table(name = "club", schema="judo_moldova")
+public class Club {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "event_type_id")
+    @Column(name = "club_id")
     private Long id;
-    @Enumerated(EnumType.STRING)
-    @Column(name = "event_type")
-    private EventTypeEnum eventType;
+
+    @Column(name = "title", nullable=false)
+    private String title;
+
+    @Column(name = "coach", nullable=false)
+    private String coach;
 }

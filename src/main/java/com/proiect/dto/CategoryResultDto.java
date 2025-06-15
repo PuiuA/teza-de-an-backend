@@ -24,7 +24,7 @@ public class CategoryResultDto {
                 .id(categoryResult.getId())
                 .category(CategoryDto.fromCategoryToDto(categoryResult.getCategory()))
                 .competitors(categoryResult.getCompetitors())
-                .result(ResultDto.fromResultToDto(categoryResult.getResult()))
+                .result(ResultDto.fromResultToDtoSimple(categoryResult.getResult()))
                 .build();
     }
 }

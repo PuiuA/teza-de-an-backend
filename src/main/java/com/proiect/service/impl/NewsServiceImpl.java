@@ -1,11 +1,19 @@
 package com.proiect.service.impl;
 
+import com.proiect.dto.CompetitionDto;
 import com.proiect.dto.NewsDto;
+import com.proiect.model.Competition;
+import com.proiect.model.News;
 import com.proiect.repository.NewsRepository;
 import com.proiect.service.NewsService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -16,15 +24,42 @@ public class NewsServiceImpl implements NewsService {
 
     @Override
     public NewsDto getNewsById(Long id) {
-        return NewsDto.fromEventToDto(newsRepository.findById(id).get());
+        News news = newsRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Stirea nu a fost gasita!"));
+        return NewsDto.fromNewsToDto(news);
     }
 
     @Override
     public List<NewsDto> getAllNews() {
         return newsRepository.findAll().stream()
-                .map(NewsDto::fromEventToDto)
+                .map(NewsDto::fromNewsToDto)
                 .collect(Collectors.toList());
     }
+
+    @Override
+    public List<NewsDto> getRecentNews() {
+        return newsRepository.findAll().stream()
+                .filter(news -> news.getPublished() != null)
+                .sorted((n1, n2) -> n2.getPublished().compareTo(n1.getPublished()))
+                .limit(3)
+                .map(NewsDto::fromNewsToDto)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public Page<NewsDto> getPaginatedNews(Pageable pageable) {
+        List<NewsDto> all = newsRepository.findAll().stream()
+                .map(NewsDto::fromNewsToDto)
+                .sorted(Comparator.comparing(NewsDto::getPublished).reversed()) // cele mai noi primele
+                .collect(Collectors.toList());
+
+        int start = (int) pageable.getOffset();
+        int end = Math.min(start + pageable.getPageSize(), all.size());
+
+        List<NewsDto> pagedList = all.subList(start, end);
+        return new PageImpl<>(pagedList, pageable, all.size());
+    }
+
 
     @Override
     public List<NewsDto> getAllNewsByCategory(String category) {

@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.Base64;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -22,11 +23,11 @@ public class CompetitionDto {
     private String title;
     private String description;
     private String shortDescription;
-    private byte[] image;
+    private String image;
     private LocalDateTime date;
     private List<LinkDto> links;
     private String information;
-    private ResultDto result;
+
 
     public static CompetitionDto fromCompetitionToDto(Competition competition) {
         return CompetitionDto.builder()
@@ -34,15 +35,14 @@ public class CompetitionDto {
                 .title(competition.getTitle())
                 .description(competition.getDescription())
                 .shortDescription(competition.getShortDescription())
-                .image(competition.getImage())
+                .image(competition.getImage() != null
+                        ? Base64.getEncoder().encodeToString(competition.getImage())
+                        : null)
                 .date(competition.getDateTime())
                 .information(competition.getInformation())
                 .links(competition.getLinks().stream()
                         .map(LinkDto::fromLinkToDto)
                         .collect(Collectors.toList()))
-                .result(competition.getResult() != null
-                        ? ResultDto.fromResultToDtoSimple(competition.getResult())
-                        : null)
                 .build();
     }
 
@@ -52,12 +52,11 @@ public class CompetitionDto {
                 .title(competition.getTitle())
                 .description(competition.getDescription())
                 .shortDescription(competition.getShortDescription())
-                .image(competition.getImage())
+                .image(competition.getImage() != null
+                        ? Base64.getEncoder().encodeToString(competition.getImage())
+                        : null)
                 .date(competition.getDateTime())
                 .information(competition.getInformation())
-                .links(competition.getLinks().stream()
-                        .map(LinkDto::fromLinkToDto)
-                        .collect(Collectors.toList()))
                 .build();
     }
 
