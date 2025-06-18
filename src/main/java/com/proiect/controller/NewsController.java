@@ -1,6 +1,7 @@
 package com.proiect.controller;
 
 import com.proiect.dto.NewsDto;
+import com.proiect.model.EventTypeEnum;
 import com.proiect.model.News;
 import com.proiect.service.NewsService;
 import lombok.RequiredArgsConstructor;
@@ -27,14 +28,18 @@ public class NewsController {
     public NewsDto getNewsById(@PathVariable Long id) {
         return newsService.getNewsById(id);
     }
+
     @GetMapping("/paginated")
     public Page<NewsDto> getPaginatedNews(
             @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "6") int size) {
+            @RequestParam(defaultValue = "6") int size,
+            @RequestParam(required = false) String title,
+            @RequestParam(required = false) EventTypeEnum type) {
 
         Pageable pageable = PageRequest.of(page, size, Sort.by("published").descending());
-        return newsService.getPaginatedNews(pageable);
+        return newsService.getPaginatedNews(pageable, title, type);
     }
+
 
     @GetMapping("/recent")
     public List<NewsDto> getRecentNews() {

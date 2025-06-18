@@ -1,8 +1,7 @@
 package com.proiect.service.impl;
 
-import com.proiect.dto.CompetitionDto;
 import com.proiect.dto.NewsDto;
-import com.proiect.model.Competition;
+import com.proiect.model.EventTypeEnum;
 import com.proiect.model.News;
 import com.proiect.repository.NewsRepository;
 import com.proiect.service.NewsService;
@@ -12,7 +11,6 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -47,18 +45,23 @@ public class NewsServiceImpl implements NewsService {
     }
 
     @Override
-    public Page<NewsDto> getPaginatedNews(Pageable pageable) {
+    public Page<NewsDto> getPaginatedNews(Pageable pageable, String title, EventTypeEnum type) {
         List<NewsDto> all = newsRepository.findAll().stream()
+                .filter(n -> {
+                    boolean matchTitle = title == null || n.getTitle().toLowerCase().contains(title.toLowerCase());
+                    boolean matchType = type == null || n.getEventType().getEventType() == type;
+                    return matchTitle && matchType;
+                })
                 .map(NewsDto::fromNewsToDto)
-                .sorted(Comparator.comparing(NewsDto::getPublished).reversed()) // cele mai noi primele
+                .sorted(Comparator.comparing(NewsDto::getPublished).reversed())
                 .collect(Collectors.toList());
 
         int start = (int) pageable.getOffset();
         int end = Math.min(start + pageable.getPageSize(), all.size());
-
         List<NewsDto> pagedList = all.subList(start, end);
         return new PageImpl<>(pagedList, pageable, all.size());
     }
+
 
 
     @Override

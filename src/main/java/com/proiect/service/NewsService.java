@@ -1,6 +1,7 @@
 package com.proiect.service;
 
 import com.proiect.dto.NewsDto;
+import com.proiect.model.EventTypeEnum;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -16,5 +17,5 @@ public interface NewsService {
     public NewsDto createNews(NewsDto newsDto);
     public NewsDto updateNews(NewsDto newsDto);
     public void deleteNews(Long id);
-    public Page<NewsDto> getPaginatedNews(Pageable pageable);
+    public Page<NewsDto> getPaginatedNews(Pageable pageable, String title, EventTypeEnum type);
 }
