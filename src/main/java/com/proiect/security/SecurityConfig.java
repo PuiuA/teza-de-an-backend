@@ -73,11 +73,15 @@ public class SecurityConfig {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration config = new CorsConfiguration();
-        config.setAllowedOriginPatterns(List.of("http://localhost:*"));
+        config.setAllowedOriginPatterns(List.of(
+                "http://localhost:*",
+                "https://teza-de-an.onrender.com",
+                "https://www.judofm.com",
+                "https://judofm.com"
+        ));
         config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
         config.setAllowedHeaders(List.of("*"));
         config.setAllowCredentials(true);
-        config.setMaxAge(3600L);
         return new UrlBasedCorsConfigurationSource() {{
             registerCorsConfiguration("/**", config);
         }};
