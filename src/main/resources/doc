@@ -1,0 +1,13 @@
+Vizionarea fisierelor de log-uri
+
+# Log-ul de azi (live, se actualizeaza)
+tail -f logs/app-today.log
+
+# Cauta erori în log-ul de azi
+grep "ERROR" logs/app-today.log
+
+# Cauta login-uri
+grep "LOGIN" logs/app-today.log
+
+# Log-ul de luni
+cat logs/app-luni.log

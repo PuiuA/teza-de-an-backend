@@ -10,4 +10,6 @@ public interface ResultService {
     public ResultDto createResult(ResultDto result);
     public ResultDto updateResult(ResultDto result);
     public ResultDto deleteResult(Long id);
+    List<ResultDto> getResultsByYear(String year);
+    List<String> getDistinctYears();
 }

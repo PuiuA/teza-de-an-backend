@@ -32,4 +32,6 @@ public class Result {
             fetch = FetchType.LAZY)
     private List<CategoryResult> categoryResults;
 
+    @Column(name = "year")
+    private String year;
 }

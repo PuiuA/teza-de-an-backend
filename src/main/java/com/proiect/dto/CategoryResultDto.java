@@ -1,30 +1,29 @@
 package com.proiect.dto;
 
 import com.proiect.model.CategoryResult;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
-@AllArgsConstructor
-@NoArgsConstructor
+import java.util.List;
+
 @Data
 @Builder
 public class CategoryResultDto {
     private Long id;
-
     private CategoryDto category;
+    private List<AthleteResultDto> athleteResults;
 
-    private String competitors;
-
-    private ResultDto result;
-
-    public static CategoryResultDto fromCategoryResultToDto(CategoryResult categoryResult){
+    public static CategoryResultDto fromEntity(CategoryResult cr) {
+        List<AthleteResultDto> athleteDtos = null;
+        if (cr.getAthleteResults() != null) {
+            athleteDtos = cr.getAthleteResults().stream()
+                    .sorted((a, b) -> Integer.compare(a.getPlace(), b.getPlace()))
+                    .map(AthleteResultDto::fromEntity)
+                    .toList();
+        }
         return CategoryResultDto.builder()
-                .id(categoryResult.getId())
-                .category(CategoryDto.fromCategoryToDto(categoryResult.getCategory()))
-                .competitors(categoryResult.getCompetitors())
-                .result(ResultDto.fromResultToDtoSimple(categoryResult.getResult()))
+                .id(cr.getId())
+                .category(CategoryDto.fromEntity(cr.getCategory()))
+                .athleteResults(athleteDtos)
                 .build();
     }
 }

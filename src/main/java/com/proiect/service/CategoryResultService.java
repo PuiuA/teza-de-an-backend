@@ -1,14 +1,11 @@
 package com.proiect.service;
 
+import com.proiect.dto.AthleteResultDto;
 import com.proiect.dto.CategoryResultDto;
-import com.proiect.model.CategoryResult;
-
-import java.util.List;
 
 public interface CategoryResultService {
-    public List<CategoryResultDto> getAllCategoryResults();
-    public CategoryResultDto getCategoryResultById(Long id);
-    public CategoryResultDto updateCategoryResult(CategoryResultDto categoryResultDto);
-    public CategoryResultDto createCategoryResult(CategoryResultDto categoryResultDto);
-    public void deleteCategoryResultById(Long id);
+    CategoryResultDto addCategoryToResult(Long resultId, Long categoryId);
+    void deleteCategoryResult(Long id);
+    AthleteResultDto addAthleteToCategory(Long categoryResultId, Long athleteId, Integer place);
+    void removeAthleteFromCategory(Long athleteResultId);
 }

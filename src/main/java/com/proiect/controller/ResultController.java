@@ -3,10 +3,8 @@ package com.proiect.controller;
 import com.proiect.dto.ResultDto;
 import com.proiect.service.ResultService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -22,8 +20,35 @@ public class ResultController {
         return resultService.getAllResults();
     }
 
-    @GetMapping("{id}")
+    @GetMapping("/{id}")
     public ResultDto getResultById(@PathVariable Long id) {
         return resultService.getResultById(id);
+    }
+
+    @GetMapping("/years")
+    public List<String> getDistinctYears() {
+        return resultService.getDistinctYears();
+    }
+
+    @GetMapping("/year/{year}")
+    public List<ResultDto> getResultsByYear(@PathVariable String year) {
+        return resultService.getResultsByYear(year);
+    }
+
+    @PostMapping
+    public ResultDto createResult(@RequestBody ResultDto dto) {
+        return resultService.createResult(dto);
+    }
+
+    @PutMapping("/{id}")
+    public ResultDto updateResult(@PathVariable Long id, @RequestBody ResultDto dto) {
+        dto.setId(id);
+        return resultService.updateResult(dto);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteResult(@PathVariable Long id) {
+        resultService.deleteResult(id);
+        return ResponseEntity.noContent().build();
     }
 }

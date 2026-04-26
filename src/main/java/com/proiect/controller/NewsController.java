@@ -9,6 +9,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -46,4 +47,20 @@ public class NewsController {
         return newsService.getRecentNews();
     }
 
+    @PostMapping
+    public ResponseEntity<NewsDto> createNews(@RequestBody NewsDto dto) {
+        return ResponseEntity.ok(newsService.createNews(dto));
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<NewsDto> updateNews(@PathVariable Long id, @RequestBody NewsDto dto) {
+        dto.setId(id);
+        return ResponseEntity.ok(newsService.updateNews(dto));
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteNews(@PathVariable Long id) {
+        newsService.deleteNews(id);
+        return ResponseEntity.noContent().build();
+    }
 }

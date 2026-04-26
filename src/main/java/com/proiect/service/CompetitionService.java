@@ -12,7 +12,7 @@ public interface CompetitionService {
     public CompetitionDto getCompetitionById(Long id);
     public List<CompetitionDto> get2Competitions();
     public Page<CompetitionDto> getPaginatedCompetitions(Pageable pageable, String title, Integer year);
-//    public CompetitionDto createCompetition(CompetitionDto competitionDto);
-//    public CompetitionDto updateCompetition(CompetitionDto competitionDto);
-//    public void deleteCompetition(Long id);
+    public CompetitionDto createCompetition(CompetitionDto competitionDto);
+    public CompetitionDto updateCompetition(Long id, CompetitionDto dto);
+    public void deleteCompetition(Long id) ;
 }

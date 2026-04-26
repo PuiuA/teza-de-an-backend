@@ -1,15 +1,13 @@
 package com.proiect.model;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
+import java.util.List;
 
-@AllArgsConstructor
-@NoArgsConstructor
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 @Builder
 @Entity
 @Table(name = "category_result", schema = "judo_moldova")
@@ -23,11 +21,13 @@ public class CategoryResult {
     @JoinColumn(name = "category_id", nullable = false)
     private Category category;
 
-    @Column(name = "competitors")
-    private String competitors;
-
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "result_id", nullable = false)
     private Result result;
 
+    @OneToMany(mappedBy = "categoryResult",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true,
+            fetch = FetchType.LAZY)
+    private List<AthleteResult> athleteResults;
 }

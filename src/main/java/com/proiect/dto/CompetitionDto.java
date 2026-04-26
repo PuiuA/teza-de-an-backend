@@ -23,7 +23,7 @@ public class CompetitionDto {
     private String title;
     private String description;
     private String shortDescription;
-    private String image;
+    private byte[] image;
     private LocalDateTime date;
     private List<LinkDto> links;
     private String information;
@@ -35,9 +35,7 @@ public class CompetitionDto {
                 .title(competition.getTitle())
                 .description(competition.getDescription())
                 .shortDescription(competition.getShortDescription())
-                .image(competition.getImage() != null
-                        ? Base64.getEncoder().encodeToString(competition.getImage())
-                        : null)
+                .image(competition.getImage())
                 .date(competition.getDateTime())
                 .information(competition.getInformation())
                 .links(competition.getLinks().stream()
@@ -52,9 +50,7 @@ public class CompetitionDto {
                 .title(competition.getTitle())
                 .description(competition.getDescription())
                 .shortDescription(competition.getShortDescription())
-                .image(competition.getImage() != null
-                        ? Base64.getEncoder().encodeToString(competition.getImage())
-                        : null)
+                .image(competition.getImage())
                 .date(competition.getDateTime())
                 .information(competition.getInformation())
                 .build();

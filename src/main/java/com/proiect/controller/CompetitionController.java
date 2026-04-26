@@ -8,6 +8,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -43,6 +44,20 @@ public class CompetitionController {
         Pageable pageable = PageRequest.of(page, size, Sort.by("dateTime").ascending());
         return competitionService.getPaginatedCompetitions(pageable, title, year);
     }
+    @PostMapping
+    public CompetitionDto createCompetition(@RequestBody CompetitionDto dto) {
+        return competitionService.createCompetition(dto);
+    }
 
+    @PutMapping("/{id}")
+    public CompetitionDto updateCompetition(@PathVariable Long id, @RequestBody CompetitionDto dto) {
+        return competitionService.updateCompetition(id, dto);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteCompetition(@PathVariable Long id) {
+        competitionService.deleteCompetition(id);
+        return ResponseEntity.noContent().build();
+    }
 
 }

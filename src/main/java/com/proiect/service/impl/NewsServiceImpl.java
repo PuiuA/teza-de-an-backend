@@ -3,6 +3,7 @@ package com.proiect.service.impl;
 import com.proiect.dto.NewsDto;
 import com.proiect.model.EventTypeEnum;
 import com.proiect.model.News;
+import com.proiect.repository.EventTypeRepository;
 import com.proiect.repository.NewsRepository;
 import com.proiect.service.NewsService;
 import lombok.RequiredArgsConstructor;
@@ -11,6 +12,7 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -19,6 +21,7 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class NewsServiceImpl implements NewsService {
     private final NewsRepository newsRepository;
+    private final EventTypeRepository eventTypeRepository;
 
     @Override
     public NewsDto getNewsById(Long id) {
@@ -62,7 +65,42 @@ public class NewsServiceImpl implements NewsService {
         return new PageImpl<>(pagedList, pageable, all.size());
     }
 
+    @Override
+    public NewsDto createNews(NewsDto dto) {
+        News news = News.builder()
+                .title(dto.getTitle())
+                .shortDescription(dto.getShortDescription())
+                .description(dto.getDescription())
+                .author(dto.getAuthor())
+                .information(dto.getInformation())
+                .published(dto.getPublished() != null ? dto.getPublished() : LocalDateTime.now())
+                .eventType(eventTypeRepository.findById(
+                                dto.getEventType() != null ? dto.getEventType().getId() : 1L)
+                        .orElseThrow())
+                .image(dto.getImage())
+                .links(List.of())
+                .build();
+        return NewsDto.fromNewsToDto(newsRepository.save(news));
+    }
 
+    @Override
+    public NewsDto updateNews(NewsDto dto) {
+        News news = newsRepository.findById(dto.getId())
+                .orElseThrow(() -> new RuntimeException("Știrea nu a fost gasită"));
+        news.setTitle(dto.getTitle());
+        news.setShortDescription(dto.getShortDescription());
+        news.setDescription(dto.getDescription());
+        news.setAuthor(dto.getAuthor());
+        news.setInformation(dto.getInformation());
+        if (dto.getPublished() != null) news.setPublished(dto.getPublished());
+        if (dto.getImage() != null) news.setImage(dto.getImage());
+        return NewsDto.fromNewsToDto(newsRepository.save(news));
+    }
+
+    @Override
+    public void deleteNews(Long id) {
+        newsRepository.deleteById(id);
+    }
 
     @Override
     public List<NewsDto> getAllNewsByCategory(String category) {
@@ -79,18 +117,5 @@ public class NewsServiceImpl implements NewsService {
         return List.of();
     }
 
-    @Override
-    public NewsDto createNews(NewsDto newsDto) {
-        return null;
-    }
-
-    @Override
-    public NewsDto updateNews(NewsDto newsDto) {
-        return null;
-    }
-
-    @Override
-    public void deleteNews(Long id) {
-
-    }
 }
+
